@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#053b29">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Waktu Solat Surau Darul Iman">
+<meta name="description" content="Waktu solat rasmi Surau Darul Iman Kanchong Darat, Kuala Langat (SGR03). Akses pantas dari telefon.">
+
+<title>Waktu Solat · Surau Darul Iman Kanchong Darat</title>
+
+<link rel="icon" href="https://arleta.site/interactivelink/1610/logo-surau-darul-iman_20260508_072535_0000.png">
+<link rel="apple-touch-icon" href="https://arleta.site/interactivelink/1610/logo-surau-darul-iman_20260508_072535_0000.png">
+
+<meta property="og:title" content="Waktu Solat · Surau Darul Iman Kanchong Darat">
+<meta property="og:description" content="Jadual waktu solat rasmi Surau Darul Iman, Zon SGR03 Kuala Langat.">
+<meta property="og:image" content="https://arleta.site/interactivelink/1610/logo-surau-darul-iman_20260508_072535_0000.png">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://apiwaktusolatsgr03.vercel.app">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    /* Colour tokens */
+    --gold:        #d4af37;
+    --gold-soft:   #e8d28a;
+    --gold-deep:   #a88a2c;
+    --gold-glow:   rgba(212, 175, 55, 0.35);
+    --ink:         #fafaf7;
+    --ink-muted:   rgba(250, 250, 247, 0.65);
+    --ink-faint:   rgba(250, 250, 247, 0.35);
+
+/* Background — switches through the day */
+    --bg-center:   #053b29;
+    --bg-edge:     #02120c;
+
+/* Surfaces */
+    --surface:        rgba(2, 14, 10, 0.72);
+    --surface-raised: rgba(0, 0, 0, 0.4);
+    --border-soft:    rgba(212, 175, 55, 0.18);
+    --border-strong:  rgba(212, 175, 55, 0.4);
+
+/* Spacing */
+    --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem;
+    --s-4: 1rem;    --s-5: 1.5rem; --s-6: 2rem;
+    --s-7: 3rem;
+
+/* Radii */
+    --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-xl: 24px;
+
+/* Easing */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    font-family: 'Fraunces', Georgia, serif;
+    margin: 0;
+    background:
+        radial-gradient(circle at 50% 0%,
+            var(--bg-center) 0%,
+            var(--bg-edge) 80%);
+    transition: background 1.5s var(--ease);
+    min-height: 100vh;
+    min-height: 100dvh;
+    color: var(--ink);
+    overflow-x: hidden;
+    padding: env(safe-area-inset-top) env(safe-area-inset-right)
+             env(safe-area-inset-bottom) env(safe-area-inset-left);
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Subtle 8-pointed star pattern overlay (Islamic geometric motif) */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23d4af37' stroke-width='0.5' opacity='0.55'><rect x='20' y='20' width='40' height='40'/><rect x='20' y='20' width='40' height='40' transform='rotate(45 40 40)'/></g></svg>");
+    background-size: 80px 80px;
+    opacity: 0.10;
+    pointer-events: none;
+    z-index: 0;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+    max-width: 480px;
+    margin: 0 auto;
+    padding: var(--s-5) var(--s-4);
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+}
+
+/* ─── HEADER ─── */
+.hd {
+    text-align: center;
+    margin-bottom: var(--s-5);
+    opacity: 0;
+    animation: fadeUp 0.6s var(--ease) 0.1s forwards;
+}
+
+.hd-logo {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    margin: 0 auto var(--s-3);
+    display: block;
+    border: 1px solid var(--border-strong);
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.hd-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1.4;
+    margin-bottom: var(--s-1);
+}
+
+.hd-zone {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--gold-soft);
+}
+
+/* ─── DATES ─── */
+.dates {
+    text-align: center;
+    margin-bottom: var(--s-5);
+    opacity: 0;
+    animation: fadeUp 0.6s var(--ease) 0.2s forwards;
+}
+
+.dates-row {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-3);
+    padding: var(--s-2) var(--s-4);
+    background: var(--surface-raised);
+    border: 1px solid var(--border-soft);
+    border-radius: 100px;
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-muted);
+}
+
+.dates-sep {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    background: var(--gold);
+    opacity: 0.6;
+}
+
+.dates-h { color: var(--gold-soft); }
+
+/* ─── HERO COUNTDOWN ─── */
+.hero {
+    position: relative;
+    text-align: center;
+    padding: var(--s-6) var(--s-5);
+    margin-bottom: var(--s-5);
+    background:
+        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%),
+        var(--surface);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--r-xl);
+    overflow: hidden;
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease) 0.3s forwards;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 15%; right: 15%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 30%; right: 30%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
+    opacity: 0.5;
+}
+
+.hero-label {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: 0.78rem;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+    margin-bottom: var(--s-2);
+}
+
+.hero-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    margin-bottom: var(--s-3);
+}
+
+.hero-time {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: clamp(3.25rem, 15vw, 5rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+    text-shadow: 0 2px 40px var(--gold-glow);
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    margin-bottom: var(--s-3);
+    font-variation-settings: 'opsz' 144;
+}
+
+.hero-count {
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+    font-feature-settings: 'tnum' on;
+}
+
+/* ─── GRID 8 WAKTU ─── */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--s-2);
+    margin-bottom: var(--s-3);
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease) 0.4s forwards;
+}
+
+.tile {
+    background: var(--surface-raised);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--r-md);
+    padding: var(--s-3) var(--s-4);
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.15s var(--ease), background 0.2s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-2);
+    color: inherit;
+    font-family: inherit;
+    min-height: 56px;
+}
+
+.tile:active { transform: scale(0.97); }
+
+.tile:hover { background: rgba(212, 175, 55, 0.06); }
+
+.tile.next {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.04));
+    border-color: var(--gold);
+    box-shadow:
+        0 0 0 1px var(--gold-glow),
+        inset 0 0 24px rgba(212, 175, 55, 0.06);
+}
+
+.tile-name {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+    letter-spacing: 0.04em;
+}
+
+.tile.next .tile-name {
+    color: var(--gold);
+    font-weight: 600;
+}
+
+.tile-time {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+    color: var(--ink);
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+}
+
+.tile.next .tile-time { color: var(--gold); }
+
+.hint {
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-5);
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease) 0.5s forwards;
+}
+
+/* ─── BUTTON KONGSI ─── */
+.btn-share {
+    width: 100%;
+    background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+    color: #1a0d00;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: none;
+    border-radius: var(--r-md);
+    padding: var(--s-4);
+    cursor: pointer;
+    box-shadow:
+        0 6px 24px var(--gold-glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    transition: transform 0.15s var(--ease), box-shadow 0.2s var(--ease);
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-3);
+    margin-bottom: var(--s-4);
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease) 0.6s forwards;
+}
+
+.btn-share:active {
+    transform: translateY(1px) scale(0.99);
+    box-shadow: 0 3px 12px var(--gold-glow);
+}
+
+.btn-share svg { flex-shrink: 0; }
+
+/* ─── INFAQ ─── */
+.infaq {
+    background: var(--surface-raised);
+    border: 1px dashed var(--border-soft);
+    border-radius: var(--r-md);
+    padding: var(--s-3) var(--s-4);
+    text-align: center;
+    margin-bottom: var(--s-5);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: border-color 0.2s var(--ease), background 0.2s var(--ease);
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease) 0.7s forwards;
+}
+
+.infaq:active { background: rgba(212, 175, 55, 0.06); }
+.infaq:hover  { border-color: var(--border-strong); }
+
+.infaq-label {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.75rem;
+    color: var(--gold-soft);
+    margin-bottom: 4px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.infaq-acc {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-feature-settings: 'tnum' on;
+    letter-spacing: 0.04em;
+}
+
+.infaq-bank {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-top: 2px;
+    letter-spacing: 0.05em;
+}
+
+/* ─── FOOTER ─── */
+.ft {
+    margin-top: auto;
+    padding-top: var(--s-4);
+    text-align: center;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease) 0.8s forwards;
+}
+
+/* ─── TOAST ─── */
+.toast {
+    position: fixed;
+    bottom: max(var(--s-5), env(safe-area-inset-bottom));
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: rgba(0, 0, 0, 0.92);
+    border: 1px solid var(--border-strong);
+    color: var(--gold-soft);
+    padding: var(--s-3) var(--s-5);
+    border-radius: 100px;
+    font-family: 'Fraunces', serif;
+    font-size: 0.88rem;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+    pointer-events: none;
+    z-index: 100;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    white-space: nowrap;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ─── SKELETON LOADING ─── */
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        rgba(212, 175, 55, 0.04) 0%,
+        rgba(212, 175, 55, 0.14) 50%,
+        rgba(212, 175, 55, 0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+    color: transparent !important;
+    text-shadow: none !important;
+    border-radius: 6px;
+}
+
+@keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -100% 0; }
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .hd, .dates, .hero, .grid, .hint, .btn-share, .infaq, .ft {
+        opacity: 1;
+    }
+}
+
+/* ─── SMALL PHONES ─── */
+@media (max-width: 360px) {
+    main { padding: var(--s-4) var(--s-3); }
+    .hero { padding: var(--s-5) var(--s-4); }
+    .hero-name { font-size: 1.25rem; }
+    .hd-name { font-size: 0.85rem; letter-spacing: 0.14em; }
+}
+
+/* ─── LARGER SCREENS (tablet+) ─── */
+@media (min-width: 600px) {
+    main { padding: var(--s-7) var(--s-5); }
+}
+</style>
+</head>
+<body>
+
+<main>
+    <header class="hd">
+        <img class="hd-logo" src="https://arleta.site/interactivelink/1610/logo-surau-darul-iman_20260508_072535_0000.png" alt="Logo Surau Darul Iman Kanchong Darat">
+        <div class="hd-name">Surau Darul Iman Kanchong Darat</div>
+        <div class="hd-zone">Zon SGR03 · Kuala Langat, Selangor</div>
+    </header>
+
+<div class="dates">
+        <div class="dates-row">
+            <span id="dt" class="skeleton">Memuatkan tarikh</span>
+            <span class="dates-sep" aria-hidden="true"></span>
+            <span id="dt-hijri" class="dates-h skeleton">— Hijrah</span>
+        </div>
+    </div>
+
+<section class="hero" aria-live="polite">
+        <div class="hero-label">Menuju</div>
+        <div class="hero-name skeleton" id="cd-w">Memuatkan</div>
+        <div class="hero-time skeleton" id="cd-time">0:00 PM</div>
+        <div class="hero-count" id="cd-t" aria-hidden="true"> </div>
+    </section>
+
+<section class="grid" id="gr" aria-label="Jadual waktu solat — tap untuk kongsi">
+        <!-- Skeleton tiles, replaced by JS -->
+        <div class="tile"><span class="tile-name skeleton">Imsak</span><span class="tile-time skeleton">0:00 PM</span></div>
+        <div class="tile"><span class="tile-name skeleton">Subuh</span><span class="tile-time skeleton">0:00 PM</span></div>
+        <div class="tile"><span class="tile-name skeleton">Syuruk</span><span class="tile-time skeleton">0:00 PM</span></div>
+        <div class="tile"><span class="tile-name skeleton">Dhuha</span><span class="tile-time skeleton">0:00 PM</span></div>
+        <div class="tile"><span class="tile-name skeleton">Zohor</span><span class="tile-time skeleton">0:00 PM</span></div>
+        <div class="tile"><span class="tile-name skeleton">Asar</span><span class="tile-time skeleton">0:00 PM</span></div>
+        <div class="tile"><span class="tile-name skeleton">Maghrib</span><span class="tile-time skeleton">0:00 PM</span></div>
+        <div class="tile"><span class="tile-name skeleton">Isyak</span><span class="tile-time skeleton">0:00 PM</span></div>
+    </section>
+
+<div class="hint">Tap mana-mana waktu untuk kongsi pantas</div>
+
+<button class="btn-share" id="btn-share" aria-label="Kongsi jadual waktu solat penuh">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m1.5 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-11-4a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0"/>
+        </svg>
+        Kongsi Jadual Penuh
+    </button>
+
+<div class="infaq" id="infaq" role="button" tabindex="0" aria-label="Salin nombor akaun infaq">
+        <span class="infaq-label">Tabung Infaq</span>
+        <span class="infaq-acc">1100 1162 49</span>
+        <span class="infaq-bank">Bank Rakyat · tap untuk salin</span>
+    </div>
+
+<footer class="ft">
+        © 2026 Surau Darul Iman Kanchong Darat<br>
+        Data JAKIM Data: JAKIM e-Solat + Mufti Selangorvia WaktuSolat.app
+    </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+    'use strict';
+
+    // ─── CONFIG ───
+    // BARU
+const ZONE     = 'SGR03';
+const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dhuha=offset&dhuha_offset=28`;
+    const CACHE_KEY= 'mkslb_solat_v1';
+    const NAMES    = ['Imsak', 'Subuh', 'Syuruk', 'Dhuha', 'Zohor', 'Asar', 'Maghrib', 'Isyak'];
+    const EMOJIS   = ['🌥️', '⛅', '🌤️', '☀️', '🌞', '☀️', '🌙', '⭐'];
+    const HIJRI_M  = ['Muharram','Safar','Rabiulawal','Rabiulakhir','Jamadilawal',
+                      'Jamadilakhir','Rejab','Syaaban','Ramadan','Syawal','Zulkaedah','Zulhijjah'];
+    const $ = (id) => document.getElementById(id);
+
+    // ─── STATE ───
+    let times = [];
+    let countdownTimer = null;
+
+    // ─── BOOT ───
+    init();
+
+    function init() {
+        const cached = readCache();
+        if (cached) {
+            times = cached;
+            render();
+        }
+        fetchFresh();
+
+        $('btn-share').addEventListener('click', shareJadualPenuh);
+        $('infaq').addEventListener('click', salinAkaun);
+        $('infaq').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); salinAkaun(); }
+        });
+
+        // Re-render when user comes back to tab
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && times.length) render();
+        });
+    }
+
+    // ─── CACHE ───
+    function readCache() {
+        try {
+            const raw = localStorage.getItem(CACHE_KEY);
+            if (!raw) return null;
+            const data = JSON.parse(raw);
+            const cachedDay = new Date(data.fetchedAt).toDateString();
+            if (cachedDay !== new Date().toDateString()) return null;
+            return data.times.map(t => new Date(t));
+        } catch { return null; }
+    }
+
+    function writeCache(arr) {
+        try {
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+                fetchedAt: new Date().toISOString(),
+                times: arr.map(t => t.toISOString())
+            }));
+        } catch {}
+    }
+
+    // ─── FETCH ───
+    async function fetchFresh() {
+        try {
+                        const res = await fetch(API);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            const t = data.times; // waktu dalam format "HH:MM"
+
+            // Tukar "HH:MM" -> objek Date hari ini (supaya semua kod lain kekal sama)
+            const mk = (hhmm) => {
+                const [h, m] = hhmm.split(':').map(Number);
+                const x = new Date();
+                x.setHours(h, m, 0, 0);
+                return x;
+            };
+
+            times = [
+                mk(t.imsak), mk(t.subuh), mk(t.syuruk), mk(t.dhuha),
+                mk(t.zohor), mk(t.asar), mk(t.maghrib), mk(t.isyak)
+            ];
+            writeCache(times);
+            render();
+        } catch (e) {
+            console.error('Fetch failed', e);
+            if (times.length === 0) showError();
+        }
+    }
+
+    // ─── RENDER ───
+    function render() {
+        renderDates();
+        renderHero();
+        renderGrid();
+        updateBackground();
+    }
+
+    function renderDates() {
+        const dt = $('dt');
+        dt.textContent = new Date().toLocaleDateString('ms-MY', {
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        });
+        dt.classList.remove('skeleton');
+
+        const dh = $('dt-hijri');
+        dh.textContent = formatHijri();
+        dh.classList.remove('skeleton');
+    }
+
+    function formatHijri() {
+        if (times.length === 0) return '—';
+        try {
+            const now = new Date();
+            const maghrib = times[6];
+            const offset = (now.getTime() >= maghrib.getTime()) ? 0 : -1;
+            const adjusted = new Date(now.getTime() + offset * 86400000);
+            const fmt = new Intl.DateTimeFormat('en-US-u-ca-islamic', {
+                day: 'numeric', month: 'numeric', year: 'numeric'
+            });
+            const parts = fmt.format(adjusted).split(' ')[0].split('/');
+            return `${parts[1]} ${HIJRI_M[parseInt(parts[0]) - 1]} ${parts[2]}H`;
+        } catch { return '—'; }
+    }
+
+    function renderHero() {
+        const now = new Date();
+        const idx = times.findIndex(t => t > now);
+
+        const wEl = $('cd-w');
+        const tEl = $('cd-time');
+        const cEl = $('cd-t');
+
+        wEl.classList.remove('skeleton');
+        tEl.classList.remove('skeleton');
+
+        if (idx === -1) {
+            wEl.textContent = 'Imsak Esok';
+            tEl.textContent = '—';
+            cEl.textContent = 'Menanti jadual esok';
+            if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+            return;
+        }
+
+        const target = times[idx];
+        wEl.textContent = NAMES[idx];
+        tEl.textContent = formatTime(target);
+        startCountdown(target);
+    }
+
+    function startCountdown(target) {
+        if (countdownTimer) clearInterval(countdownTimer);
+        const tick = () => {
+            const diff = Math.floor((target - new Date()) / 1000);
+            if (diff <= 0) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+                render();
+                return;
+            }
+            $('cd-t').textContent = formatCountdown(diff);
+        };
+        tick();
+        countdownTimer = setInterval(tick, 1000);
+    }
+
+    function formatCountdown(seconds) {
+        const h = Math.floor(seconds / 3600);
+        const m = Math.floor((seconds % 3600) / 60);
+        const s = seconds % 60;
+        if (h >= 1) return `${h} jam ${m} minit lagi`;
+        if (m >= 1) return `${m} minit ${String(s).padStart(2,'0')} saat lagi`;
+        return `${s} saat lagi`;
+    }
+
+    function formatTime(date) {
+        return date.toLocaleTimeString('en-US', {
+            hour: 'numeric', minute: '2-digit', hour12: true
+        });
+    }
+
+    function renderGrid() {
+        const now = new Date();
+        const nextIdx = times.findIndex(t => t > now);
+
+        $('gr').innerHTML = times.map((t, i) => `
+            <button class="tile ${i === nextIdx ? 'next' : ''}"
+                    type="button"
+                    data-idx="${i}"
+                    aria-label="Kongsi waktu ${NAMES[i]} ${formatTime(t)}">
+                <span class="tile-name">${NAMES[i]}</span>
+                <span class="tile-time">${formatTime(t)}</span>
+            </button>
+        `).join('');
+
+        $('gr').querySelectorAll('.tile').forEach(tile => {
+            tile.addEventListener('click', () => {
+                shareWaktu(parseInt(tile.dataset.idx, 10));
+            });
+        });
+    }
+
+    // ─── DYNAMIC BACKGROUND ───
+    function updateBackground() {
+        if (times.length === 0) return;
+        const now = Date.now();
+        const subuh   = times[1].getTime();
+        const syuruk  = times[2].getTime();
+        const asar    = times[5].getTime();
+        const maghrib = times[6].getTime();
+        const root = document.documentElement;
+
+        let center, edge;
+        if (now >= subuh && now < syuruk)        { center = '#0a5c44'; edge = '#021a11'; }
+        else if (now >= syuruk && now < asar)    { center = '#107c5b'; edge = '#052b1e'; }
+        else if (now >= asar && now < maghrib)   { center = '#146141'; edge = '#071c12'; }
+        else                                      { center = '#053b29'; edge = '#02120c'; }
+
+        root.style.setProperty('--bg-center', center);
+        root.style.setProperty('--bg-edge', edge);
+    }
+
+    // ─── SHARING ───
+    async function shareWaktu(idx) {
+        haptic();
+        const name = NAMES[idx];
+        const emoji = EMOJIS[idx];
+        const time = formatTime(times[idx]);
+        const text = `${emoji} ${name}: ${time}\n📍 Surau Darul Iman Kanchong Darat (SGR03)\n\n🌐 ${location.href}`;
+
+        if (navigator.share) {
+            try { await navigator.share({ title: `Waktu ${name}`, text }); }
+            catch { /* user cancelled — silent */ }
+            return;
+        }
+        // Fallback: copy → WhatsApp
+        try {
+            await navigator.clipboard.writeText(text);
+            toast(`Waktu ${name} disalin`);
+        } catch {
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+        }
+    }
+
+    async function shareJadualPenuh() {
+        haptic();
+        if (times.length === 0) { toast('Sila tunggu sebentar'); return; }
+
+        const tarikh = new Date().toLocaleDateString('ms-MY', {
+            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+        });
+        const hijri = formatHijri();
+
+        let m = `⏰ *Jadual Waktu Solat*\n📍 Surau Darul Iman Kanchong Darat (SGR03)\n🗓️ ${tarikh}\n🌟 ${hijri}\n\n\`\`\`\n`;
+        NAMES.forEach((n, i) => {
+            m += `${EMOJIS[i]}  ${n.padEnd(8)}: ${formatTime(times[i])}\n`;
+        });
+        m += `\`\`\`\n\n🌐 Semak waktu langsung:\n${location.href}`;
+
+        if (navigator.share) {
+            try { await navigator.share({ title: 'Waktu Solat Surau Darul Iman', text: m }); }
+            catch { /* user cancelled */ }
+            return;
+        }
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(m)}`, '_blank');
+    }
+
+    async function salinAkaun() {
+        haptic();
+        try {
+            await navigator.clipboard.writeText('1100116249');
+            toast('Nombor akaun disalin');
+        } catch {
+            toast('Tak boleh salin — sila copy manual');
+        }
+    }
+
+    // ─── UTILS ───
+    function haptic() {
+        if (navigator.vibrate) navigator.vibrate(10);
+    }
+
+    let toastTimer;
+    function toast(msg) {
+        const el = $('toast');
+        el.textContent = msg;
+        el.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    function showError() {
+        $('cd-w').textContent = 'Tiada Sambungan';
+        $('cd-w').classList.remove('skeleton');
+        $('cd-time').textContent = '—';
+        $('cd-time').classList.remove('skeleton');
+        $('cd-t').textContent = 'Sila semak internet anda';
+    }
+})();
+</script>
+</body>
+</html>
