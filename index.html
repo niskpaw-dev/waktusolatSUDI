@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#053b29">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Waktu Solat Surau Darul Iman">
-<meta name="description" content="Waktu solat rasmi Surau Darul Iman Kanchong Darat, Kuala Langat (SGR03). Akses pantas dari telefon.">
+<meta name="apple-mobile-web-app-title" content="Waktu Solat MKSLB">
+<meta name="description" content="Waktu solat rasmi Masjid Kampung Sungai Lang Baru, Kuala Langat (SGR03). Akses pantas dari telefon.">
 
 <title>Waktu Solat · Surau Darul Iman Kanchong Darat</title>
 
@@ -26,34 +26,27 @@
 
 <style>
 :root {
-    /* Colour tokens */
     --gold:        #d4af37;
     --gold-soft:   #e8d28a;
     --gold-deep:   #a88a2c;
     --gold-glow:   rgba(212, 175, 55, 0.35);
     --ink:         #fafaf7;
-    --ink-muted:   rgba(250, 250, 247, 0.65);
-    --ink-faint:   rgba(250, 250, 247, 0.35);
+    --ink-muted:   rgba(250, 250, 247, 0.72);
+    --ink-faint:   rgba(250, 250, 247, 0.45);
 
-/* Background — switches through the day */
     --bg-center:   #053b29;
     --bg-edge:     #02120c;
 
-/* Surfaces */
-    --surface:        rgba(2, 14, 10, 0.72);
-    --surface-raised: rgba(0, 0, 0, 0.4);
+    --surface-raised: rgba(0, 0, 0, 0.45);
     --border-soft:    rgba(212, 175, 55, 0.18);
-    --border-strong:  rgba(212, 175, 55, 0.4);
+    --border-strong:  rgba(212, 175, 55, 0.45);
 
-/* Spacing */
     --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem;
     --s-4: 1rem;    --s-5: 1.5rem; --s-6: 2rem;
     --s-7: 3rem;
 
-/* Radii */
-    --r-sm: 8px; --r-md: 12px; --r-lg: 18px; --r-xl: 24px;
+    --r-sm: 6px; --r-md: 10px; --r-lg: 16px; --r-xl: 22px;
 
-/* Easing */
     --ease: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -78,14 +71,24 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* Subtle 8-pointed star pattern overlay (Islamic geometric motif) */
 body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'><g fill='none' stroke='%23d4af37' stroke-width='0.5' opacity='0.55'><rect x='20' y='20' width='40' height='40'/><rect x='20' y='20' width='40' height='40' transform='rotate(45 40 40)'/></g></svg>");
-    background-size: 80px 80px;
-    opacity: 0.10;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'><g fill='none' stroke='%23d4af37' stroke-width='0.6' opacity='0.7'><rect x='22' y='22' width='46' height='46'/><rect x='22' y='22' width='46' height='46' transform='rotate(45 45 45)'/><circle cx='45' cy='45' r='3'/></g></svg>");
+    background-size: 90px 90px;
+    opacity: 0.13;
+    pointer-events: none;
+    z-index: 0;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(ellipse at center,
+        transparent 30%,
+        rgba(0, 0, 0, 0.4) 100%);
     pointer-events: none;
     z-index: 0;
 }
@@ -105,7 +108,7 @@ main {
 /* ─── HEADER ─── */
 .hd {
     text-align: center;
-    margin-bottom: var(--s-5);
+    margin-bottom: var(--s-4);
     opacity: 0;
     animation: fadeUp 0.6s var(--ease) 0.1s forwards;
 }
@@ -140,47 +143,43 @@ main {
     color: var(--gold-soft);
 }
 
-/* ─── DATES ─── */
-.dates {
+/* ─── DATE STRIP ─── */
+.datestrip {
     text-align: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 0.92rem;
+    color: var(--ink);
+    letter-spacing: 0.03em;
     margin-bottom: var(--s-5);
+    padding: var(--s-3) var(--s-4);
+    background: var(--surface-raised);
+    border-top: 1px solid var(--border-soft);
+    border-bottom: 1px solid var(--border-soft);
+    line-height: 1.6;
     opacity: 0;
     animation: fadeUp 0.6s var(--ease) 0.2s forwards;
 }
 
-.dates-row {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--s-3);
-    padding: var(--s-2) var(--s-4);
-    background: var(--surface-raised);
-    border: 1px solid var(--border-soft);
-    border-radius: 100px;
-    font-size: 0.78rem;
-    letter-spacing: 0.05em;
-    color: var(--ink-muted);
+.datestrip-sep {
+    color: var(--gold);
+    margin: 0 var(--s-2);
+    font-weight: 300;
 }
 
-.dates-sep {
-    width: 4px; height: 4px;
-    border-radius: 50%;
-    background: var(--gold);
-    opacity: 0.6;
-}
+.datestrip .h { color: var(--gold-soft); }
 
-.dates-h { color: var(--gold-soft); }
-
-/* ─── HERO COUNTDOWN ─── */
+/* ─── HERO ─── */
 .hero {
     position: relative;
     text-align: center;
-    padding: var(--s-6) var(--s-5);
+    padding: var(--s-6) var(--s-4) var(--s-5);
     margin-bottom: var(--s-5);
-    background:
-        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 70%),
-        var(--surface);
-    border: 1px solid var(--border-strong);
     border-radius: var(--r-xl);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.10) 0%, transparent 70%),
+        var(--surface-raised);
+    border: 1px solid var(--border-strong);
     overflow: hidden;
     opacity: 0;
     animation: fadeUp 0.7s var(--ease) 0.3s forwards;
@@ -194,63 +193,133 @@ main {
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
 }
 
-.hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 30%; right: 30%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-soft), transparent);
-    opacity: 0.5;
-}
-
 .hero-label {
     font-family: 'Fraunces', serif;
     font-style: italic;
-    font-weight: 300;
-    font-size: 0.78rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.18em;
     color: var(--gold-soft);
-    margin-bottom: var(--s-2);
+    margin-bottom: var(--s-3);
 }
 
 .hero-name {
     font-family: 'Fraunces', serif;
     font-weight: 500;
-    font-size: 1.5rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
+    letter-spacing: 0.05em;
     color: var(--ink);
-    margin-bottom: var(--s-3);
+    margin-bottom: var(--s-2);
+    line-height: 1.1;
 }
 
 .hero-time {
     font-family: 'Fraunces', serif;
-    font-weight: 300;
-    font-size: clamp(3.25rem, 15vw, 5rem);
-    line-height: 1;
-    letter-spacing: -0.02em;
-    color: var(--gold);
-    text-shadow: 0 2px 40px var(--gold-glow);
-    font-feature-settings: 'tnum' on, 'lnum' on;
-    margin-bottom: var(--s-3);
-    font-variation-settings: 'opsz' 144;
-}
-
-.hero-count {
-    font-family: 'Fraunces', serif;
     font-weight: 400;
-    font-style: italic;
-    font-size: 0.95rem;
+    font-size: clamp(1.15rem, 5vw, 1.5rem);
     color: var(--ink-muted);
-    letter-spacing: 0.04em;
-    font-feature-settings: 'tnum' on;
+    letter-spacing: 0.08em;
+    font-feature-settings: 'tnum' on, 'lnum' on;
+    margin-bottom: var(--s-5);
 }
 
-/* ─── GRID 8 WAKTU ─── */
+/* ─── 3-CIRCLE COUNTDOWN with PROGRESS RINGS ─── */
+.circles {
+    display: flex;
+    justify-content: center;
+    gap: clamp(var(--s-3), 4vw, var(--s-5));
+    margin-bottom: var(--s-5);
+}
+
+.circle {
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.circle-disc {
+    position: relative;
+    width: clamp(72px, 22vw, 96px);
+    height: clamp(72px, 22vw, 96px);
+    margin: 0 auto var(--s-2);
+    border-radius: 50%;
+    box-shadow: 0 0 24px rgba(212, 175, 55, 0.15);
+}
+
+.ring {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transform: rotate(-90deg);
+    overflow: visible;
+}
+
+.ring-bg {
+    fill: rgba(0, 0, 0, 0.55);
+    stroke: rgba(212, 175, 55, 0.18);
+    stroke-width: 4;
+}
+
+.ring-fill {
+    fill: none;
+    stroke: var(--gold);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+    transition: stroke-dashoffset 0.95s linear;
+    filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.5));
+}
+
+.ring-fill.no-transition {
+    transition: none;
+}
+
+.circle-num {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+    color: var(--ink);
+    font-feature-settings: 'tnum' on, 'lnum' on;
+}
+
+.circle-label {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold-soft);
+}
+
+.hero-sublabel {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.82rem;
+    color: var(--gold-soft);
+    letter-spacing: 0.05em;
+    margin-bottom: var(--s-2);
+    line-height: 1.5;
+    padding: 0 var(--s-3);
+}
+
+.hero-loc {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--ink);
+    letter-spacing: 0.05em;
+}
+
+/* ─── GRID 4-COL ─── */
 .grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: var(--s-2);
     margin-bottom: var(--s-3);
     opacity: 0;
@@ -261,68 +330,86 @@ main {
     background: var(--surface-raised);
     border: 1px solid var(--border-soft);
     border-radius: var(--r-md);
-    padding: var(--s-3) var(--s-4);
-    text-align: left;
+    padding: var(--s-3) var(--s-1);
+    text-align: center;
     cursor: pointer;
-    transition: transform 0.15s var(--ease), background 0.2s var(--ease);
+    transition: transform 0.15s var(--ease), background 0.2s var(--ease), border-color 0.2s var(--ease);
     -webkit-tap-highlight-color: transparent;
     user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--s-2);
     color: inherit;
     font-family: inherit;
-    min-height: 56px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--s-2);
+    min-height: 72px;
 }
 
-.tile:active { transform: scale(0.97); }
-
+.tile:active { transform: scale(0.96); }
 .tile:hover { background: rgba(212, 175, 55, 0.06); }
 
 .tile.next {
-    background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.04));
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.16), rgba(212, 175, 55, 0.04));
     border-color: var(--gold);
     box-shadow:
         0 0 0 1px var(--gold-glow),
-        inset 0 0 24px rgba(212, 175, 55, 0.06);
+        inset 0 0 20px rgba(212, 175, 55, 0.08);
 }
 
 .tile-name {
+    display: block;
     font-family: 'Fraunces', serif;
-    font-weight: 500;
-    font-size: 0.92rem;
-    color: var(--ink-muted);
-    letter-spacing: 0.04em;
+    font-weight: 700;
+    font-size: 0.66rem;
+    color: var(--gold-soft);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
 }
 
-.tile.next .tile-name {
-    color: var(--gold);
-    font-weight: 600;
-}
+.tile.next .tile-name { color: var(--gold); }
 
 .tile-time {
+    display: block;
     font-family: 'Fraunces', serif;
-    font-weight: 600;
-    font-size: 1.05rem;
+    font-weight: 500;
+    font-size: clamp(0.8rem, 3.2vw, 0.95rem);
     color: var(--ink);
     font-feature-settings: 'tnum' on, 'lnum' on;
     letter-spacing: 0.01em;
+    line-height: 1;
     white-space: nowrap;
 }
 
-.tile.next .tile-time { color: var(--gold); }
+.tile.next .tile-time {
+    color: var(--gold);
+    font-weight: 600;
+}
 
 .hint {
     text-align: center;
     font-family: 'Fraunces', serif;
     font-style: italic;
-    font-size: 0.78rem;
+    font-size: 0.76rem;
     color: var(--ink-faint);
-    margin-bottom: var(--s-5);
+    margin-bottom: var(--s-3);
     letter-spacing: 0.04em;
     opacity: 0;
     animation: fadeUp 0.7s var(--ease) 0.5s forwards;
+}
+
+.disclaimer {
+    text-align: left;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    margin-bottom: var(--s-5);
+    letter-spacing: 0.02em;
+    line-height: 1.5;
+    opacity: 0;
+    animation: fadeUp 0.7s var(--ease) 0.55s forwards;
 }
 
 /* ─── BUTTON KONGSI ─── */
@@ -382,7 +469,7 @@ main {
     display: block;
     font-family: 'Fraunces', serif;
     font-style: italic;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: var(--gold-soft);
     margin-bottom: 4px;
     letter-spacing: 0.16em;
@@ -484,17 +571,23 @@ main {
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
     }
-    .hd, .dates, .hero, .grid, .hint, .btn-share, .infaq, .ft {
+    .hd, .datestrip, .hero, .grid, .hint, .disclaimer,
+    .btn-share, .infaq, .ft {
         opacity: 1;
     }
+    .ring-fill { transition: none !important; }
 }
 
-/* ─── SMALL PHONES ─── */
+/* ─── SMALL PHONES (≤360px) ─── */
 @media (max-width: 360px) {
     main { padding: var(--s-4) var(--s-3); }
-    .hero { padding: var(--s-5) var(--s-4); }
-    .hero-name { font-size: 1.25rem; }
+    .hero { padding: var(--s-5) var(--s-3) var(--s-4); }
     .hd-name { font-size: 0.85rem; letter-spacing: 0.14em; }
+    .datestrip { font-size: 0.82rem; }
+    .tile-name { font-size: 0.6rem; letter-spacing: 0.1em; }
+    .tile-time { font-size: 0.78rem; }
+    .grid { gap: 4px; }
+    .circles { gap: var(--s-2); }
 }
 
 /* ─── LARGER SCREENS (tablet+) ─── */
@@ -512,49 +605,83 @@ main {
         <div class="hd-zone">Zon SGR03 · Kuala Langat, Selangor</div>
     </header>
 
-<div class="dates">
-        <div class="dates-row">
-            <span id="dt" class="skeleton">Memuatkan tarikh</span>
-            <span class="dates-sep" aria-hidden="true"></span>
-            <span id="dt-hijri" class="dates-h skeleton">— Hijrah</span>
-        </div>
+    <div class="datestrip">
+        <span id="dt" class="skeleton">Memuatkan tarikh</span>
+        <span class="datestrip-sep">|</span>
+        <span id="dt-hijri" class="h skeleton">Hijri</span>
     </div>
 
-<section class="hero" aria-live="polite">
-        <div class="hero-label">Menuju</div>
+    <section class="hero" aria-live="polite">
+        <div class="hero-label">Waktu Solat Seterusnya</div>
         <div class="hero-name skeleton" id="cd-w">Memuatkan</div>
-        <div class="hero-time skeleton" id="cd-time">0:00 PM</div>
-        <div class="hero-count" id="cd-t" aria-hidden="true"> </div>
+        <div class="hero-time skeleton" id="cd-time">00 : 00 PM</div>
+
+        <div class="circles" aria-hidden="true">
+            <div class="circle">
+                <div class="circle-disc">
+                    <svg class="ring" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="46"></circle>
+                        <circle class="ring-fill" id="h-ring" cx="50" cy="50" r="46" pathLength="100"></circle>
+                    </svg>
+                    <div class="circle-num skeleton" id="c-h">00</div>
+                </div>
+                <div class="circle-label">Jam</div>
+            </div>
+            <div class="circle">
+                <div class="circle-disc">
+                    <svg class="ring" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="46"></circle>
+                        <circle class="ring-fill" id="m-ring" cx="50" cy="50" r="46" pathLength="100"></circle>
+                    </svg>
+                    <div class="circle-num skeleton" id="c-m">00</div>
+                </div>
+                <div class="circle-label">Minit</div>
+            </div>
+            <div class="circle">
+                <div class="circle-disc">
+                    <svg class="ring" viewBox="0 0 100 100">
+                        <circle class="ring-bg" cx="50" cy="50" r="46"></circle>
+                        <circle class="ring-fill" id="s-ring" cx="50" cy="50" r="46" pathLength="100"></circle>
+                    </svg>
+                    <div class="circle-num skeleton" id="c-s">00</div>
+                </div>
+                <div class="circle-label">Saat</div>
+            </div>
+        </div>
+
+        <div class="hero-sublabel">Sehingga Waktu Solat Seterusnya Di Zon</div>
+        <div class="hero-loc">SGR03 · Kuala Langat</div>
     </section>
 
-<section class="grid" id="gr" aria-label="Jadual waktu solat — tap untuk kongsi">
-        <!-- Skeleton tiles, replaced by JS -->
-        <div class="tile"><span class="tile-name skeleton">Imsak</span><span class="tile-time skeleton">0:00 PM</span></div>
-        <div class="tile"><span class="tile-name skeleton">Subuh</span><span class="tile-time skeleton">0:00 PM</span></div>
-        <div class="tile"><span class="tile-name skeleton">Syuruk</span><span class="tile-time skeleton">0:00 PM</span></div>
-        <div class="tile"><span class="tile-name skeleton">Dhuha</span><span class="tile-time skeleton">0:00 PM</span></div>
-        <div class="tile"><span class="tile-name skeleton">Zohor</span><span class="tile-time skeleton">0:00 PM</span></div>
-        <div class="tile"><span class="tile-name skeleton">Asar</span><span class="tile-time skeleton">0:00 PM</span></div>
-        <div class="tile"><span class="tile-name skeleton">Maghrib</span><span class="tile-time skeleton">0:00 PM</span></div>
-        <div class="tile"><span class="tile-name skeleton">Isyak</span><span class="tile-time skeleton">0:00 PM</span></div>
+    <section class="grid" id="gr" aria-label="Jadual waktu solat — tap untuk kongsi">
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Imsak</span><span class="tile-time skeleton">0:00 AM</span></button>
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Subuh</span><span class="tile-time skeleton">0:00 AM</span></button>
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Syuruk</span><span class="tile-time skeleton">0:00 AM</span></button>
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Dhuha</span><span class="tile-time skeleton">0:00 AM</span></button>
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Zohor</span><span class="tile-time skeleton">0:00 PM</span></button>
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Asar</span><span class="tile-time skeleton">0:00 PM</span></button>
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Maghrib</span><span class="tile-time skeleton">0:00 PM</span></button>
+        <button class="tile" type="button" disabled><span class="tile-name skeleton">Isyak</span><span class="tile-time skeleton">0:00 PM</span></button>
     </section>
 
-<div class="hint">Tap mana-mana waktu untuk kongsi pantas</div>
+    <div class="hint">Tap mana-mana waktu untuk kongsi pantas</div>
 
-<button class="btn-share" id="btn-share" aria-label="Kongsi jadual waktu solat penuh">
+    <div class="disclaimer">* Waktu Solat bagi Zon SGR03 Kuala Langat. Sumber data: JAKIM e-Solat + ketetapan Mufti Selangor</div>
+
+    <button class="btn-share" id="btn-share" aria-label="Kongsi jadual waktu solat penuh">
         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.5 2.5 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5m1.5 9.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-11-4a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0"/>
         </svg>
         Kongsi Jadual Penuh
     </button>
 
-<div class="infaq" id="infaq" role="button" tabindex="0" aria-label="Salin nombor akaun infaq">
+    <div class="infaq" id="infaq" role="button" tabindex="0" aria-label="Salin nombor akaun infaq">
         <span class="infaq-label">Tabung Infaq</span>
         <span class="infaq-acc">1100 1162 49</span>
         <span class="infaq-bank">Bank Rakyat · tap untuk salin</span>
     </div>
 
-<footer class="ft">
+    <footer class="ft">
         © 2026 Surau Darul Iman Kanchong Darat<br>
         Data JAKIM Data: JAKIM e-Solat + Mufti Selangorvia WaktuSolat.app
     </footer>
@@ -567,29 +694,28 @@ main {
     'use strict';
 
     // ─── CONFIG ───
-    // BARU
-const ZONE     = 'SGR03';
-const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dhuha=offset&dhuha_offset=28`;
-    const CACHE_KEY= 'mkslb_solat_v1';
-    const NAMES    = ['Imsak', 'Subuh', 'Syuruk', 'Dhuha', 'Zohor', 'Asar', 'Maghrib', 'Isyak'];
-    const EMOJIS   = ['🌥️', '⛅', '🌤️', '☀️', '🌞', '☀️', '🌙', '⭐'];
-    const HIJRI_M  = ['Muharram','Safar','Rabiulawal','Rabiulakhir','Jamadilawal',
-                      'Jamadilakhir','Rejab','Syaaban','Ramadan','Syawal','Zulkaedah','Zulhijjah'];
+    const API       = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today`;
+    const CACHE_KEY = 'mkslb_solat_v3'; // bump: cache shape kini termasuk Hijri
+    const NAMES     = ['Imsak', 'Subuh', 'Syuruk', 'Dhuha', 'Zohor', 'Asar', 'Maghrib', 'Isyak'];
+    const EMOJIS    = ['🌥️', '⛅', '🌤️', '☀️', '🌞', '☀️', '🌙', '⭐'];
+    const MS_MONTHS = ['Januari','Februari','Mac','April','Mei','Jun',
+                       'Julai','Ogos','September','Oktober','November','Disember'];
+    const DAYS_MS   = ['Ahad','Isnin','Selasa','Rabu','Khamis','Jumaat','Sabtu'];
     const $ = (id) => document.getElementById(id);
 
     // ─── STATE ───
     let times = [];
+    let hijriToday = null;     // { day, month, year, formatted } dari API
+    let hijriMaghrib = null;   // Hijri selepas Maghrib (= esok), dari API
     let countdownTimer = null;
+    let currentWindowSecs = 1;
+    let lastPercents = { s: -1, m: -1, h: -1 };
 
     // ─── BOOT ───
     init();
 
     function init() {
-        const cached = readCache();
-        if (cached) {
-            times = cached;
-            render();
-        }
+        if (readCache()) render(); // render serta-merta dari cache (kalau ada & hari sama)
         fetchFresh();
 
         $('btn-share').addEventListener('click', shareJadualPenuh);
@@ -598,7 +724,6 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
             if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); salinAkaun(); }
         });
 
-        // Re-render when user comes back to tab
         document.addEventListener('visibilitychange', () => {
             if (document.visibilityState === 'visible' && times.length) render();
         });
@@ -608,19 +733,22 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
     function readCache() {
         try {
             const raw = localStorage.getItem(CACHE_KEY);
-            if (!raw) return null;
+            if (!raw) return false;
             const data = JSON.parse(raw);
-            const cachedDay = new Date(data.fetchedAt).toDateString();
-            if (cachedDay !== new Date().toDateString()) return null;
-            return data.times.map(t => new Date(t));
-        } catch { return null; }
+            if (new Date(data.fetchedAt).toDateString() !== new Date().toDateString()) return false;
+            times = data.times.map(t => new Date(t));
+            hijriToday = data.hijriToday || null;
+            hijriMaghrib = data.hijriMaghrib || null;
+            return times.length === 8;
+        } catch { return false; }
     }
 
-    function writeCache(arr) {
+    function writeCache() {
         try {
             localStorage.setItem(CACHE_KEY, JSON.stringify({
                 fetchedAt: new Date().toISOString(),
-                times: arr.map(t => t.toISOString())
+                times: times.map(t => t.toISOString()),
+                hijriToday, hijriMaghrib
             }));
         } catch {}
     }
@@ -628,12 +756,12 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
     // ─── FETCH ───
     async function fetchFresh() {
         try {
-                        const res = await fetch(API);
+            const res = await fetch(API);
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const data = await res.json();
             const t = data.times; // waktu dalam format "HH:MM"
 
-            // Tukar "HH:MM" -> objek Date hari ini (supaya semua kod lain kekal sama)
+            // "HH:MM" -> objek Date hari ini (kekal supaya kod countdown/grid tak berubah)
             const mk = (hhmm) => {
                 const [h, m] = hhmm.split(':').map(Number);
                 const x = new Date();
@@ -645,7 +773,12 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
                 mk(t.imsak), mk(t.subuh), mk(t.syuruk), mk(t.dhuha),
                 mk(t.zohor), mk(t.asar), mk(t.maghrib), mk(t.isyak)
             ];
-            writeCache(times);
+
+            // Hijri rasmi JAKIM — terus dari API (tiada kiraan di sini)
+            hijriToday = data.hijri_today || null;
+            hijriMaghrib = data.hijri_maghrib || null;
+
+            writeCache();
             render();
         } catch (e) {
             console.error('Fetch failed', e);
@@ -661,31 +794,33 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
         updateBackground();
     }
 
+    // Masihi: client-side (resilient). Hijri: dari API (authoritative).
     function renderDates() {
         const dt = $('dt');
-        dt.textContent = new Date().toLocaleDateString('ms-MY', {
-            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-        });
+        dt.textContent = gregorianFull();
         dt.classList.remove('skeleton');
 
         const dh = $('dt-hijri');
-        dh.textContent = formatHijri();
+        dh.textContent = hijriFormatted();
         dh.classList.remove('skeleton');
     }
 
-    function formatHijri() {
-        if (times.length === 0) return '—';
-        try {
-            const now = new Date();
-            const maghrib = times[6];
-            const offset = (now.getTime() >= maghrib.getTime()) ? 0 : -1;
-            const adjusted = new Date(now.getTime() + offset * 86400000);
-            const fmt = new Intl.DateTimeFormat('en-US-u-ca-islamic', {
-                day: 'numeric', month: 'numeric', year: 'numeric'
-            });
-            const parts = fmt.format(adjusted).split(' ')[0].split('/');
-            return `${parts[1]} ${HIJRI_M[parseInt(parts[0]) - 1]} ${parts[2]}H`;
-        } catch { return '—'; }
+    // "Selasa, 02 Jun 2026"
+    function gregorianFull() {
+        const now = new Date();
+        return `${DAYS_MS[now.getDay()]}, ${String(now.getDate()).padStart(2, '0')} ${MS_MONTHS[now.getMonth()]} ${now.getFullYear()}`;
+    }
+
+    // Tarikh Hijri tukar selepas Maghrib (ikut ketetapan).
+    // Sebelum Maghrib -> hijri_today; selepas Maghrib -> hijri_maghrib (rasmi JAKIM).
+    function hijriFormatted() {
+        const src = isAfterMaghrib() ? hijriMaghrib : hijriToday;
+        return (src && src.formatted) ? src.formatted : '—';
+    }
+
+    function isAfterMaghrib() {
+        if (times.length < 7) return false;
+        return Date.now() >= times[6].getTime();
     }
 
     function renderHero() {
@@ -694,7 +829,6 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
 
         const wEl = $('cd-w');
         const tEl = $('cd-time');
-        const cEl = $('cd-t');
 
         wEl.classList.remove('skeleton');
         tEl.classList.remove('skeleton');
@@ -702,19 +836,26 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
         if (idx === -1) {
             wEl.textContent = 'Imsak Esok';
             tEl.textContent = '—';
-            cEl.textContent = 'Menanti jadual esok';
+            setCircles(0, 0, 0);
+            updateRings(0, 0, 0, true);
             if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
             return;
         }
 
         const target = times[idx];
+        const prevTime = (idx === 0)
+            ? new Date(target.getTime() - 12 * 3600 * 1000)
+            : times[idx - 1];
+        currentWindowSecs = Math.max(1, (target - prevTime) / 1000);
+
         wEl.textContent = NAMES[idx];
-        tEl.textContent = formatTime(target);
+        tEl.textContent = formatTimeHero(target);
         startCountdown(target);
     }
 
     function startCountdown(target) {
         if (countdownTimer) clearInterval(countdownTimer);
+        let firstTick = true;
         const tick = () => {
             const diff = Math.floor((target - new Date()) / 1000);
             if (diff <= 0) {
@@ -723,25 +864,72 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
                 render();
                 return;
             }
-            $('cd-t').textContent = formatCountdown(diff);
+            const h = Math.floor(diff / 3600);
+            const m = Math.floor((diff % 3600) / 60);
+            const s = diff % 60;
+            setCircles(h, m, s);
+            updateRings(h, m, s, firstTick);
+            firstTick = false;
         };
         tick();
         countdownTimer = setInterval(tick, 1000);
     }
 
-    function formatCountdown(seconds) {
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = seconds % 60;
-        if (h >= 1) return `${h} jam ${m} minit lagi`;
-        if (m >= 1) return `${m} minit ${String(s).padStart(2,'0')} saat lagi`;
-        return `${s} saat lagi`;
+    function setCircles(h, m, s) {
+        const ch = $('c-h'), cm = $('c-m'), cs = $('c-s');
+        ch.textContent = String(h).padStart(2, '0');
+        cm.textContent = String(m).padStart(2, '0');
+        cs.textContent = String(s).padStart(2, '0');
+        ch.classList.remove('skeleton');
+        cm.classList.remove('skeleton');
+        cs.classList.remove('skeleton');
     }
 
-    function formatTime(date) {
-        return date.toLocaleTimeString('en-US', {
-            hour: 'numeric', minute: '2-digit', hour12: true
-        });
+    function updateRings(h, m, s, snap) {
+        const sP = (s / 60) * 100;
+        const mP = ((m * 60 + s) / 3600) * 100;
+        const totalRemaining = h * 3600 + m * 60 + s;
+        const hP = Math.min(100, (totalRemaining / currentWindowSecs) * 100);
+
+        const sWrap = !snap && sP > lastPercents.s + 1;
+        const mWrap = !snap && mP > lastPercents.m + 1;
+
+        setRing('s-ring', sP, snap || sWrap);
+        setRing('m-ring', mP, snap || mWrap);
+        setRing('h-ring', hP, snap);
+
+        lastPercents = { s: sP, m: mP, h: hP };
+    }
+
+    function setRing(id, percent, snap) {
+        const el = $(id);
+        if (!el) return;
+        const offset = 100 - Math.max(0, Math.min(100, percent));
+
+        if (snap) {
+            el.classList.add('no-transition');
+            el.style.strokeDashoffset = offset;
+            void el.getBoundingClientRect();
+            el.classList.remove('no-transition');
+        } else {
+            el.style.strokeDashoffset = offset;
+        }
+    }
+
+    function formatTimeHero(date) {
+        let h = date.getHours();
+        const m = String(date.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        return `${String(h).padStart(2, '0')} : ${m} ${ampm}`;
+    }
+
+    function formatTimeTile(date) {
+        let h = date.getHours();
+        const m = String(date.getMinutes()).padStart(2, '0');
+        const ampm = h >= 12 ? 'PM' : 'AM';
+        h = h % 12 || 12;
+        return `${String(h).padStart(2, '0')}:${m} ${ampm}`;
     }
 
     function renderGrid() {
@@ -752,9 +940,9 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
             <button class="tile ${i === nextIdx ? 'next' : ''}"
                     type="button"
                     data-idx="${i}"
-                    aria-label="Kongsi waktu ${NAMES[i]} ${formatTime(t)}">
+                    aria-label="Kongsi waktu ${NAMES[i]} ${formatTimeTile(t)}">
                 <span class="tile-name">${NAMES[i]}</span>
-                <span class="tile-time">${formatTime(t)}</span>
+                <span class="tile-time">${formatTimeTile(t)}</span>
             </button>
         `).join('');
 
@@ -790,7 +978,7 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
         haptic();
         const name = NAMES[idx];
         const emoji = EMOJIS[idx];
-        const time = formatTime(times[idx]);
+        const time = formatTimeTile(times[idx]);
         const text = `${emoji} ${name}: ${time}\n📍 Surau Darul Iman Kanchong Darat (SGR03)\n\n🌐 ${location.href}`;
 
         if (navigator.share) {
@@ -798,7 +986,6 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
             catch { /* user cancelled — silent */ }
             return;
         }
-        // Fallback: copy → WhatsApp
         try {
             await navigator.clipboard.writeText(text);
             toast(`Waktu ${name} disalin`);
@@ -811,14 +998,12 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
         haptic();
         if (times.length === 0) { toast('Sila tunggu sebentar'); return; }
 
-        const tarikh = new Date().toLocaleDateString('ms-MY', {
-            weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-        });
-        const hijri = formatHijri();
+        const tarikh = gregorianFull();
+        const hijri  = hijriFormatted();
 
         let m = `⏰ *Jadual Waktu Solat*\n📍 Surau Darul Iman Kanchong Darat (SGR03)\n🗓️ ${tarikh}\n🌟 ${hijri}\n\n\`\`\`\n`;
         NAMES.forEach((n, i) => {
-            m += `${EMOJIS[i]}  ${n.padEnd(8)}: ${formatTime(times[i])}\n`;
+            m += `${EMOJIS[i]}  ${n.padEnd(8)}: ${formatTimeTile(times[i])}\n`;
         });
         m += `\`\`\`\n\n🌐 Semak waktu langsung:\n${location.href}`;
 
@@ -833,7 +1018,7 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
     async function salinAkaun() {
         haptic();
         try {
-            await navigator.clipboard.writeText('1100116249');
+            await navigator.clipboard.writeText('12074010031714');
             toast('Nombor akaun disalin');
         } catch {
             toast('Tak boleh salin — sila copy manual');
@@ -859,7 +1044,10 @@ const API      = `https://apiwaktusolatsgr03.vercel.app/api/waktu-solat?today&dh
         $('cd-w').classList.remove('skeleton');
         $('cd-time').textContent = '—';
         $('cd-time').classList.remove('skeleton');
-        $('cd-t').textContent = 'Sila semak internet anda';
+        ['c-h', 'c-m', 'c-s'].forEach(id => {
+            $(id).textContent = '00';
+            $(id).classList.remove('skeleton');
+        });
     }
 })();
 </script>
