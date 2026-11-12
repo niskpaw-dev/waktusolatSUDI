@@ -834,11 +834,20 @@ main {
         tEl.classList.remove('skeleton');
 
         if (idx === -1) {
+            // Data semalam (lepas tengah malam) → tarik jadual hari ini dulu
+            if (times[0].toDateString() !== now.toDateString()) { fetchFresh(); return; }
             wEl.textContent = 'Imsak Esok';
+            if (imsakEsok && imsakEsok > now) {
+                currentWindowSecs = Math.max(1, (imsakEsok - times[7]) / 1000);
+                tEl.textContent = formatTimeHero(imsakEsok);
+                startCountdown(imsakEsok);
+                return;
+            }
             tEl.textContent = '—';
             setCircles(0, 0, 0);
             updateRings(0, 0, 0, true);
             if (countdownTimer) { clearInterval(countdownTimer); countdownTimer = null; }
+            fetchImsakEsok();
             return;
         }
 
@@ -853,10 +862,40 @@ main {
         startCountdown(target);
     }
 
+    // Selepas Isyak: ambil Imsak esok dari API supaya kiraan detik terus hidup
+    let imsakEsok = null, imsakEsokBusy = false;
+    async function fetchImsakEsok() {
+        if (imsakEsokBusy) return;
+        imsakEsokBusy = true;
+        try {
+            const d = new Date(); d.setDate(d.getDate() + 1);
+            const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            const res = await fetch(API.replace('?today', '?date=' + key));
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const j = await res.json();
+            const [h, m] = j.times.imsak.split(':').map(Number);
+            d.setHours(h, m, 0, 0);
+            imsakEsok = d;
+            renderHero();
+        } catch (e) {
+            console.error('Imsak esok gagal', e);
+        } finally {
+            imsakEsokBusy = false;
+        }
+    }
+
     function startCountdown(target) {
         if (countdownTimer) clearInterval(countdownTimer);
         let firstTick = true;
+        const startDay = new Date().toDateString();
         const tick = () => {
+            // Lepas tengah malam → lukis semula (tarikh, Hijri, jadual hari baru)
+            if (new Date().toDateString() !== startDay) {
+                clearInterval(countdownTimer);
+                countdownTimer = null;
+                render();
+                return;
+            }
             const diff = Math.floor((target - new Date()) / 1000);
             if (diff <= 0) {
                 clearInterval(countdownTimer);
