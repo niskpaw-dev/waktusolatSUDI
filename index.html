@@ -15,7 +15,7 @@
 <link rel="apple-touch-icon" href="https://arleta.site/interactivelink/1610/logo-surau-darul-iman_20260508_072535_0000.png">
 
 <meta property="og:title" content="Waktu Solat · Surau Darul Iman Kanchong Darat">
-<meta property="og:description" content="Jadual waktu solat rasmi Surau Darul Iman, Zon SGR03 Kuala Langat.">
+<meta property="og:description" content="Jadual waktu solat rasmi Surau Darul Iman, Daerah Kuala Langat.">
 <meta property="og:image" content="https://arleta.site/interactivelink/1610/logo-surau-darul-iman_20260508_072535_0000.png">
 <meta property="og:type" content="website">
 
@@ -602,7 +602,7 @@ main {
     <header class="hd">
         <img class="hd-logo" src="https://arleta.site/interactivelink/1610/logo-surau-darul-iman_20260508_072535_0000.png" alt="Logo Surau Darul Iman Kanchong Darat">
         <div class="hd-name">Surau Darul Iman Kanchong Darat</div>
-        <div class="hd-zone">Zon SGR03 · Kuala Langat, Selangor</div>
+        <div class="hd-zone">Daerah Kuala Langat, Selangor</div>
     </header>
 
     <div class="datestrip">
@@ -650,7 +650,7 @@ main {
         </div>
 
         <div class="hero-sublabel">Sehingga Waktu Solat Seterusnya Di Zon</div>
-        <div class="hero-loc">SGR03 · Kuala Langat</div>
+        <div class="hero-loc">Daerah Kuala Langat</div>
     </section>
 
     <section class="grid" id="gr" aria-label="Jadual waktu solat — tap untuk kongsi">
@@ -979,7 +979,7 @@ main {
         const name = NAMES[idx];
         const emoji = EMOJIS[idx];
         const time = formatTimeTile(times[idx]);
-        const text = `${emoji} ${name}: ${time}\n📍 Surau Darul Iman Kanchong Darat (SGR03)\n\n🌐 ${location.href}`;
+        const text = `${emoji} ${name}: ${time}\n📍 Surau Darul Iman Kanchong Darat (Kuala Langat)\n\n🌐 ${location.href}`;
 
         if (navigator.share) {
             try { await navigator.share({ title: `Waktu ${name}`, text }); }
@@ -1001,7 +1001,7 @@ main {
         const tarikh = gregorianFull();
         const hijri  = hijriFormatted();
 
-        let m = `⏰ *Jadual Waktu Solat*\n📍 Surau Darul Iman Kanchong Darat (SGR03)\n🗓️ ${tarikh}\n🌟 ${hijri}\n\n\`\`\`\n`;
+        let m = `⏰ *Jadual Waktu Solat*\n📍 Surau Darul Iman Kanchong Darat (Kuala Langat)\n🗓️ ${tarikh}\n🌟 ${hijri}\n\n\`\`\`\n`;
         NAMES.forEach((n, i) => {
             m += `${EMOJIS[i]}  ${n.padEnd(8)}: ${formatTimeTile(times[i])}\n`;
         });
