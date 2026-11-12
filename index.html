@@ -705,6 +705,7 @@ main {
 
     // ─── STATE ───
     let times = [];
+    let imsakEsok = null, imsakEsokBusy = false; // Imsak esok (selepas Isyak), dari API
     let hijriToday = null;     // { day, month, year, formatted } dari API
     let hijriMaghrib = null;   // Hijri selepas Maghrib (= esok), dari API
     let countdownTimer = null;
@@ -863,7 +864,6 @@ main {
     }
 
     // Selepas Isyak: ambil Imsak esok dari API supaya kiraan detik terus hidup
-    let imsakEsok = null, imsakEsokBusy = false;
     async function fetchImsakEsok() {
         if (imsakEsokBusy) return;
         imsakEsokBusy = true;
